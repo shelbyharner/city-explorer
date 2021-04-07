@@ -25,8 +25,8 @@ Lab 6 Partner: Michael Ryan
 Name of feature: Set up
 Estimate of time needed to complete: 45 minutes
 Start time: 9:10p
-Finish time: _____
-Actual time needed to complete: _____
+Finish time: 10:15p
+Actual time needed to complete: 1 hour & 5 minutes
 
 Name of feature: ________________________________
 Estimate of time needed to complete: _____
