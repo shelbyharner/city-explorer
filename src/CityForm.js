@@ -15,10 +15,10 @@ class CityForm extends React.Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} id="form">
         <Form.Group controlID="citySearch">
           <Form.Control type="text" ref={this.textInput} placeholder="Enter city" />
-          <Button variant="info" type="submit">
+          <Button id="submit" type="submit">
             Explore!
           </Button>
         </Form.Group>
