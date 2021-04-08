@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import Header from './Header.js';
 import CityForm from './CityForm.js';
+import CityMap from './CityMap.js';
 import Footer from './Footer.js';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
@@ -15,17 +16,23 @@ class App extends React.Component {
     this.state = {
       alreadySearched: false,
       locationSearched: '',
+      cityData: '',
     }
   }
 
   handleSearch = () => {
-    this.setState({locationSearched: false});
+    this.setState({alreadySearched: false});
   }
 
-  handleLocationSearched = () => {
+  handleLocationSearched = async(locationSearched) => {
+    
+    let cityDataReturned = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${locationSearched}&format=json`);
+    console.log('searched', cityDataReturned)
+    
     this.setState({
       alreadySearched: true,
       locationSearched: locationSearched,
+      cityData: cityDataReturned.data[0]
     });
   }
 
@@ -34,9 +41,14 @@ class App extends React.Component {
       <div>
         <Header />
 
-        <CityForm />
-        onClick={this.state.handleLocationSearched}
+        <CityForm 
+        handleLocationSearched={this.handleLocationSearched}
+        />
 
+        <CityMap
+        cityData={this.state.cityData}
+        />
+        
         <Footer />
       </div>
     )
