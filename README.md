@@ -40,10 +40,10 @@ Start time: 9:45p
 Finish time: 11:15p
 Actual time needed to complete: 1 hour 30 minutes
 
-Name of feature: ________________________________
-Estimate of time needed to complete: _____
-Start time: _____
-Finish time: _____
-Actual time needed to complete: _____
+Name of feature: Error Message Feature
+Estimate of time needed to complete: 30 minutes
+Start time: 11:15a
+Finish time: 11:30a
+Actual time needed to complete: 30 minutes
 
 ![Web Request-Response Cycle](lab6-web-request.jpg)
