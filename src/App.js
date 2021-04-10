@@ -25,15 +25,18 @@ class App extends React.Component {
   }
 
   handleLocationSearched = async(locationSearched) => {
-    
-    let cityDataReturned = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${locationSearched}&format=json`);
-    console.log('searched', cityDataReturned)
-    
-    this.setState({
-      alreadySearched: true,
-      locationSearched: locationSearched,
-      cityData: cityDataReturned.data[0]
-    });
+    try {
+      let cityDataReturned = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${locationSearched}&format=json`);
+      console.log('searched', cityDataReturned)
+      
+      this.setState({
+        alreadySearched: true,
+        locationSearched: locationSearched,
+        cityData: cityDataReturned.data[0]
+      });
+    } catch (err) {
+      this.setState({error: `${err.message}: ${err.response.data.error}`});
+    }
   }
 
   render() {
@@ -47,6 +50,7 @@ class App extends React.Component {
 
         <CityMap
         cityData={this.state.cityData}
+        error={this.state.error}
         />
         
         <Footer />
