@@ -5,6 +5,8 @@ import Header from './Header.js';
 import CityForm from './CityForm.js';
 import CityMap from './CityMap.js';
 import Footer from './Footer.js';
+import Weather from './Weather.js';
+import Error from './Error.js';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
@@ -17,6 +19,9 @@ class App extends React.Component {
       alreadySearched: false,
       locationSearched: '',
       cityData: '',
+      weatherData: [],
+      isError: false,
+      error: '',
     }
   }
 
@@ -27,7 +32,6 @@ class App extends React.Component {
   handleLocationSearched = async(locationSearched) => {
     try {
       let cityDataReturned = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${locationSearched}&format=json`);
-      console.log('searched', cityDataReturned)
       
       this.setState({
         alreadySearched: true,
@@ -35,7 +39,23 @@ class App extends React.Component {
         cityData: cityDataReturned.data[0]
       });
     } catch (err) {
-      this.setState({error: `${err.message}: ${err.response.data.error}`});
+      this.setState({
+        error: `${err.message}: ${err.response.data.error}`,
+        isError: true,
+      });
+    }
+    this.getWeatherData ();
+  }
+
+  getWeatherData = async() => {
+    try {
+      let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather-data`);
+      this.setState({weatherData: weatherData.data});
+    } catch (err) {
+      this.setState({
+        error: `${err.message}: ${err.response.data.error}`,
+        isError: true,
+      });
     }
   }
 
@@ -48,11 +68,26 @@ class App extends React.Component {
         handleLocationSearched={this.handleLocationSearched}
         />
 
-        <CityMap
-        cityData={this.state.cityData}
-        error={this.state.error}
-        />
+        {
+          this.state.alreadySearched ? 
+          <CityMap
+          cityData={this.state.cityData}
+          />
+          : ''
+        }
         
+        {
+          this.state.isError ?
+          <Error 
+          error={this.state.error}
+          />
+          : ''          
+        }
+
+        <Weather
+        weatherData={this.state.weatherData}
+        />
+
         <Footer />
       </div>
     )

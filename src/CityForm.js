@@ -16,7 +16,7 @@ class CityForm extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit} id="form">
-        <Form.Group controlID="citySearch">
+        <Form.Group controlId="citySearch">
           <Form.Control type="text" ref={this.textInput} placeholder="Enter city" />
           <Button id="submit" type="submit">
             Explore!
