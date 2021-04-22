@@ -36,20 +36,28 @@ class App extends React.Component {
       this.setState({
         alreadySearched: true,
         locationSearched: locationSearched,
-        cityData: cityDataReturned.data[0]
+        cityData: cityDataReturned.data[0],
       });
+      console.log(cityDataReturned.data[0]);
+      this.getWeatherData(cityDataReturned.data[0]);
+//pass data to movie function - same as line 41
     } catch (err) {
       this.setState({
         error: `${err.message}: ${err.response.data.error}`,
         isError: true,
       });
     }
-    this.getWeatherData ();
   }
 
-  getWeatherData = async() => {
+  getWeatherData = async(data) => {
     try {
-      let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather-data`);
+      let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather-data`, { 
+        params: {
+          lat: data.lat,
+          lon: data.lon,
+        }
+       });
+      
       this.setState({weatherData: weatherData.data});
     } catch (err) {
       this.setState({
@@ -59,7 +67,10 @@ class App extends React.Component {
     }
   }
 
+  //movie function goes here...
+
   render() {
+    console.log(this.state.error);
     return(
       <div>
         <Header />
