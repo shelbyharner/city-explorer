@@ -60,9 +60,10 @@ class App extends React.Component {
       
       this.setState({weatherData: weatherData.data});
     } catch (err) {
+      console.log(err);
       this.setState({
-        error: `${err.message}: ${err.response.data.error}`,
-        isError: true,
+        // error: `${err.message}: ${err.response.data.error}`,
+        // isError: true,
       });
     }
   }
@@ -70,7 +71,6 @@ class App extends React.Component {
   //movie function goes here...
 
   render() {
-    console.log(this.state.error);
     return(
       <div>
         <Header />
