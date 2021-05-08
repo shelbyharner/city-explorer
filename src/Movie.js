@@ -1,4 +1,5 @@
 import React from 'react';
+import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 class Movie extends React.Component {
@@ -14,9 +15,18 @@ class Movie extends React.Component {
       </ListGroup.Item>
     ))
     return(
-      <ListGroup>
-        {allItems}
-      </ListGroup>
+      <Card style={{width: '50rem'}} id="movie">
+        <Card.Header>
+          <h3>Movies</h3>
+        </Card.Header>
+        <Card.Body>
+          <Card.Text>
+            <ListGroup>
+              {allItems}
+            </ListGroup>
+          </Card.Text>
+        </Card.Body>
+      </Card>
     )
   }
 }

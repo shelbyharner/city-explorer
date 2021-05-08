@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 class CityMap extends React.Component {
   render() {
     return (
-      <Container>
+      <Container id="location">
         <h3>{this.props.cityData.display_name}</h3>
         <h3>Latitude:{this.props.cityData.lat}</h3>
         <h3>Longitude:{this.props.cityData.lon}</h3>
