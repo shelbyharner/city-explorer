@@ -9,7 +9,6 @@ import Weather from './Weather.js';
 import Movie from './Movie.js';
 import Error from './Error.js';
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends React.Component {
@@ -40,30 +39,24 @@ class App extends React.Component {
         locationSearched: locationSearched,
         cityData: cityDataReturned.data[0],
       });
-      console.log(cityDataReturned.data[0]);
       this.getWeatherData(cityDataReturned.data[0]);
-//pass data to movie function - same as line 41
     } catch (err) {
       this.setState({
         error: `${err.message}: ${err.response.data.error}`,
         isError: true,
       });
     }
-
     this.getWeatherData();
     this.getMovieData();
-
   }
 
   getWeatherData = async(data) => {
     try {
-
       let weatherData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather-data`, {
       params: {
         city: this.state.locationSearched
       }
     });      
-
       this.setState({weatherData: weatherData.data});
     } catch (err) {
       this.setState({
@@ -73,7 +66,6 @@ class App extends React.Component {
     }
   }
   
-
   getMovieData = async() => {
     try {
       let movieData = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movie-data`, {
@@ -81,7 +73,6 @@ class App extends React.Component {
           city: this.state.locationSearched
         }
       });
-      // console.log(movieData)
       this.setState({movieData: movieData.data});
     } catch (err) {
       this.setState({
@@ -90,8 +81,6 @@ class App extends React.Component {
       });
     }
   }
-
-  //movie function goes here...
 
   render() {
     console.log(this.state.error);
